@@ -1,8 +1,8 @@
 // 1 task
-const userName = prompt('Как тебя зовут?' ),
-      userBirthYear = +prompt('Какого ты года рождения?'),
-      currentDate = new Date(),
-      userAge = currentDate.getFullYear() - userBirthYear;
+const userName = prompt('Как тебя зовут?' );
+const userBirthYear = +prompt('Какого ты года рождения?');
+const currentDate = new Date();
+const userAge = currentDate.getFullYear() - userBirthYear;
 
 let promptNumbers = [];
 
@@ -21,13 +21,17 @@ const additionResult = promptNumbers[0] + promptNumbers[1] + promptNumbers[2];
 console.log(`Сумма трех чисел = ${additionResult}`);
 
 function isEven(number) {
-    return number % 2 === 0 ? `Число ${number} четное` : `Число ${number} нечетное`
+    return number % 2 === 0;
+}
+
+function showInfo(number) {
+  return isEven(number) ? `Число ${number} четное` : `Число ${number} нечетное`;
 }
 
 console.log( `
-  ${isEven(promptNumbers[0])}
-  ${isEven(promptNumbers[1])}
-  ${isEven(promptNumbers[2])}
+  ${showInfo(promptNumbers[0])}
+  ${showInfo(promptNumbers[1])}
+  ${showInfo(promptNumbers[2])}
 `);
 
 // 3 task
@@ -69,17 +73,17 @@ if(promptNumbers[0] > promptNumbers[1]){
 }
 
 // 6 task
-const randomNumber = 4567855,
-      lastNumber = randomNumber % 10;
+const randomNumber = 4567855;
+const lastNumber = randomNumber % 10;
 const lastNumberIsEven =  lastNumber % 2 === 0 ? `Цифра ${lastNumber} четная` : `Цифра ${lastNumber} нечетная`;
 console.log(lastNumberIsEven);
 
 // 7 task
-const currentUserName = prompt('Как тебя зовут?' ),
-      currentUserAge = +prompt('Сколько вам лет?' ),
-      alcoholDrinking = confirm("Алкоголь употребляем?");
+const currentUserName = prompt('Как тебя зовут?' );
+const currentUserAge = +prompt('Сколько вам лет?' );
+const alcoholDrinking = confirm("Алкоголь употребляем?");
 
-if(alcoholDrinking === true) {
+if(alcoholDrinking && !Number.isNaN(currentUserAge)) {
   if(currentUserAge > 40) {
     alert(`${currentUserName}, не злоупотребляйте`)
   } else if(currentUserAge < 18) {
@@ -87,6 +91,8 @@ if(alcoholDrinking === true) {
   } else {
     alert(`${currentUserName}, только водку с пивом не мешай...`)
   }
-} else {
+} else if(Number.isNaN(currentUserAge)){
+  alert('Введите правильно возраст')
+} else if(!alcoholDrinking){
   alert(`${currentUserName}, так держать!`)
 }
