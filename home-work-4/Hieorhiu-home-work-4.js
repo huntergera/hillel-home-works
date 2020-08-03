@@ -2,7 +2,6 @@
 
 // 1 & 2 tasks
 const radius = +prompt('Введите радиус окружности');
-// const errorMessage = 'Вы ввели неверное число';
 
 function calculateArea(radius) {
     return Math.PI * radius ** 2
@@ -27,35 +26,24 @@ console.log(`Среднее арифметическое ${arithmeticMean(firstN
 
 // 4 task
 const action = prompt('Введите математическое действие');
-// const action = '/';
-// +, -, *, /, %, ^
 
-function mathematicalResult(action, firstNumber, secondNumber) {
+function calc(x, y, action) {
     switch (action) {
         case '+':
-            return firstNumber + secondNumber;
+            return x + y;
         case '-':
-            return firstNumber - secondNumber;
+            return x - y;
         case '*':
-            return firstNumber * secondNumber;
+            return x * y;
         case '/':
-            return firstNumber / secondNumber;
+            return x / y;
         case '%':
-            return firstNumber % secondNumber;
+            return x % y;
         case '^':
-            return firstNumber ** secondNumber;
+            return x ** y;
         default:
-            console.log( "Нет таких значений" );
+            return  "Вы ввели неверное математическое действие"
     }
 }
 
-console.log(mathematicalResult(action, firstNumber, secondNumber));
-
-//
-//
-// let calc = new Function(
-//   'firstNumber , secondNumber , action',
-//   `return ${firstNumber} ${action} ${secondNumber}`,
-// );
-//
-// console.log(calc(firstNumber, secondNumber, action));
+console.log(calc(firstNumber, secondNumber, action));
