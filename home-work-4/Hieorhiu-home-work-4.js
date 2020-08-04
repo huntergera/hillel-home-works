@@ -42,7 +42,7 @@ function calc(x, y, action) {
         case '^':
             return x ** y;
         default:
-            return  "Вы ввели неверное математическое действие"
+            return;
     }
 }
 
