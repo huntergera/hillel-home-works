@@ -2,64 +2,48 @@
 
 // 1 & 2 tasks
 const radius = +prompt('Введите радиус окружности');
-const errorMessage = 'Вы ввели неверное число';
-
-function isNumber(number) {
-    return !Number.isNaN(number);
-}
 
 function calculateArea(radius) {
-    return isNumber(radius)
-      ? `Площадь круга ${Math.PI * radius ** 2}`
-      : errorMessage;
+    return Math.PI * radius ** 2
 }
 
 function calculateCircumference(radius) {
-    return isNumber(radius)
-      ? `Окружность круга ${2 * Math.PI * radius}`
-      : errorMessage;
+    return 2 * Math.PI * radius
 }
 
-console.log(calculateArea(radius));
-console.log(calculateCircumference(radius));
-
-
-// Второй вариант решения задачи, попробовал использовать колбек-функцию, работает, но не уверен что так можно писать
-
-// function showResult(radius, calculating) {
-//     return Number.isNaN(radius) ? 'Вы ввели неверный радиус' : calculating;
-// }
-//
-// function calculateArea(radius) {
-//     return Math.PI * radius**2;
-// };
-//
-// function calculateCircumference(radius) {
-//     return 2 * Math.PI * radius;
-// }
-//
-// console.log(showResult(radius, calculateArea(radius)));
-// console.log(showResult(radius, calculateCircumference(radius)));
-
+console.log(`Площадь круга ${calculateArea(radius)}`);
+console.log(`Окружность круга ${calculateCircumference(radius)}`);
 
 // 3 task
 const firstNumber = +prompt('Введите первое число');
 const secondNumber = +prompt('Введите второе число');
 
 function arithmeticMean(firstNumber, secondNumber) {
-    return isNumber(firstNumber) && isNumber(secondNumber)
-      ? `Среднее арифметическое ${(firstNumber + secondNumber) / 2}`
-      : errorMessage;
+    return (firstNumber + secondNumber) / 2
 }
 
-console.log(arithmeticMean(firstNumber, secondNumber));
+console.log(`Среднее арифметическое ${arithmeticMean(firstNumber, secondNumber)}`);
 
 // 4 task
-const action = '/';
+const action = prompt('Введите математическое действие');
 
-let calc = new Function(
-  'firstNumber , secondNumber , action',
-  `return ${firstNumber} ${action} ${secondNumber}`,
-);
+function calc(x, y, action) {
+    switch (action) {
+        case '+':
+            return x + y;
+        case '-':
+            return x - y;
+        case '*':
+            return x * y;
+        case '/':
+            return x / y;
+        case '%':
+            return x % y;
+        case '^':
+            return x ** y;
+        default:
+            return;
+    }
+}
 
 console.log(calc(firstNumber, secondNumber, action));
