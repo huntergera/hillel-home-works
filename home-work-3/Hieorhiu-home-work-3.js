@@ -42,12 +42,12 @@ for (let i = 15; i <= 35; i++) {
 console.log(`Произведение всех целых чисел ${multiplicationOfNumbers}`);
 
 // 6 task
-let NumbersSum = 0;
+let numbersSum = 0;
 
 for (let i = 1; i <= 500; i++) {
-    NumbersSum = (NumbersSum + i);
+    numbersSum = (numbersSum + i);
 }
-console.log(`Cреднее арифметическое ${NumbersSum / 500}`);
+console.log(`Cреднее арифметическое ${numbersSum / 500}`);
 
 // 7 task
 let sumOfEvenNumbers = 0;
