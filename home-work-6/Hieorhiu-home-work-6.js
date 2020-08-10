@@ -32,7 +32,7 @@ console.log(newExampleArray);
 
 // function filter
 function filter(array, callback) {
-    let newFilterArray = [];
+    const newFilterArray = [];
     for (let i = 0; i < array.length; i++) {
         if(callback(array[i])) {
             newFilterArray.push(array[i]);
