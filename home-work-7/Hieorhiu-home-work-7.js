@@ -43,9 +43,9 @@ function compare(object1, object2) {
     const keysArray2 = Object.keys(object2);
     const valuesArray1 = Object.values(object1);
     const valuesArray2 = Object.values(object2);
-    if(keysArray1.length !== keysArray2.length) {
-        return false
-    } else {
+
+    if(keysArray1.length === keysArray2.length) {
+
         for (let i = 0; i < keysArray1.length; i++) {
             if (keysArray1[i] !== keysArray2[i]) {
                 return false
@@ -58,26 +58,25 @@ function compare(object1, object2) {
         }
         return true
     }
+    return false
 }
 
 //3 task
 function countItemsOfString(str) {
     const result = {};
-    const chars = str.split("");
-    for (let i = 0; i < chars.length; i++) {
-        let count = result[chars[i]]? result[chars[i]] : 0;
-        result[chars[i]] = count + 1;
+    const items = str.split("");
+    for (let i = 0; i < items.length; i++) {
+        const count = result[items[i]] ? result[items[i]] : 0;
+        result[items[i]] = count + 1;
     }
     return result;
 }
-
-
 
 
 function main() {
     console.log(copy(user, userContacts));
     console.log(compare(user, userContacts));
     console.log(compare(address1, address2));
-
+    console.log(countItemsOfString(string))
 }
 main();
