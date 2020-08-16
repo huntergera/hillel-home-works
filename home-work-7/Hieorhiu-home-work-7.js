@@ -41,33 +41,22 @@ function copy(target, origin) {
 function compare(object1, object2) {
     const keysArray1 = Object.keys(object1);
     const keysArray2 = Object.keys(object2);
-    const valuesArray1 = Object.values(object1);
-    const valuesArray2 = Object.values(object2);
-
-    if(keysArray1.length === keysArray2.length) {
-
-        for (let i = 0; i < keysArray1.length; i++) {
-            if (keysArray1[i] !== keysArray2[i]) {
-                return false
-            }
-        }
-        for (let i = 0; i < valuesArray1.length; i++) {
-            if (valuesArray1[i] !== valuesArray2[i]) {
-                return false
-            }
+    if(keysArray1.length !== keysArray2.length) {
+        return false
+    } else {
+        for (const key in object1) {
+            if (object1[key] !== object2[key]) return false;
         }
         return true
     }
-    return false
 }
 
 //3 task
 function countItemsOfString(str) {
     const result = {};
-    const items = str.split("");
-    for (let i = 0; i < items.length; i++) {
-        const count = result[items[i]] ? result[items[i]] : 0;
-        result[items[i]] = count + 1;
+    for (let i = 0; i < string.length; i++) {
+        const count = result[string[i]] ? result[string[i]] : 0;
+        result[string[i]] = count + 1;
     }
     return result;
 }
