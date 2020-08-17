@@ -7,17 +7,18 @@ const numbers = 223344;
 
 //1 task
 function isSymbolPresentInString(str,symbol) {
-    const items = str.split("");
-    for(const item of items) {
-        return item === symbol;
+    for(const item of str) {
+        if (item === symbol) {
+            return true
+        }
     }
+    return false
 }
 
 //2 task
 function getSymbolIndex(str,symbol) {
-    const items = str.split("");
-    for (let i = 0; i < items.length; i++) {
-        if (items[i] === symbol) {
+    for (let i = 0; i < str.length; i++) {
+        if (str[i] === symbol) {
             return i
         }
     }
@@ -26,12 +27,20 @@ function getSymbolIndex(str,symbol) {
 
 //3 task
 function getNumberOfEven(n) {
-
+    let count = 0;
+    let numbersToString = n.toString()
+    for (let i = 0; i < numbersToString.length; i++) {
+        if (numbersToString[i] % 2 === 0) {
+            count++
+        }
+    }
+    return count;
 }
 
 function main() {
     console.log(isSymbolPresentInString(string,"a"));
-    console.log(isSymbolPresentInString(string,"e"));
+    console.log(isSymbolPresentInString(string,"d"));
     console.log(getSymbolIndex(string2,"l"));
+    console.log(getNumberOfEven(numbers))
 }
 main();
