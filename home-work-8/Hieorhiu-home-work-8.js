@@ -59,7 +59,7 @@ function getSymbolIndex(str,symbol) {
 //3 task
 function getNumberOfEven(n) {
     let count = 0;
-    let numbersToString = n.toString()
+    const numbersToString = n.toString();
     for (let i = 0; i < numbersToString.length; i++) {
         if (numbersToString[i] % 2 === 0) {
             count++
