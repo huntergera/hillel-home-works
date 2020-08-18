@@ -3,7 +3,7 @@
 function makeSum() {
     let count = 0;
 
-    return function(arg) {
+    return (arg) => {
         count += arg;
         return count
     }
