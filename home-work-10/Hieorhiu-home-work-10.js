@@ -15,8 +15,8 @@ function getTypeOfValue(wrapper, element) {
         countString: 0,
         countNumber: 0,
     };
-
     const allElements = document.querySelector(wrapper).querySelectorAll(element);
+
     for (const item of allElements) {
         if (isNaN(item.innerHTML)) {
             countElements.countString += 1
@@ -27,7 +27,7 @@ function getTypeOfValue(wrapper, element) {
     return countElements;
 }
 
-const countAllElements = Object.assign({}, getTypeOfValue('#wrapper', '*'));getTypeOfValue('#wrapper', '*')
+const countAllElements = Object.assign({}, getTypeOfValue('#wrapper', '*'));
 
 function renderResultToElement(element) {
     const result =  document.querySelector(element);
