@@ -18,11 +18,7 @@ function getTypeOfValue(wrapper, element) {
     const allElements = document.querySelector(wrapper).querySelectorAll(element);
 
     for (const item of allElements) {
-        if (isNaN(item.innerHTML)) {
-            countElements.countString += 1
-        } else {
-            countElements.countNumber += 1
-        }
+        isNaN(item.innerHTML) ? countElements.countString += 1 : countElements.countNumber += 1
     }
     return countElements;
 }
