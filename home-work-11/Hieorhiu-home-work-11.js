@@ -93,6 +93,10 @@ function createListItem(props) {
         className: "waves-effect waves-light btn red darken-1",
     });
 
+    editButton.addEventListener("click", () => {
+        createPrompt();
+    });
+
     element.appendChild(editButton);
     element.appendChild(deleteButton);
 
@@ -100,5 +104,7 @@ function createListItem(props) {
 }
 
 function createPrompt() {
-    
+    const prompt = prompt('Введите новое имя' );
+console.log(prompt)
+    return prompt;
 }
