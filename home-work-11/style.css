@@ -9,3 +9,9 @@
     margin-right: 15px;
     max-width: 200px;
 }
+.users-list li {
+    margin-bottom: 15px;
+}
+.users-list li .btn {
+    margin-left: 15px;
+}

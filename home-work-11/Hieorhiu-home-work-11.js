@@ -3,40 +3,41 @@ const wrapper = document.querySelector("#wrapper");
 if (wrapper !== null) {
     const list = createList();
 
-    const form = createForm({
-        onAdd: (value) => {
-            const li = createListItem({ text: value });
-            list.appendChild(li);
-        }
+    const form = createForm((value) => {
+        const li = createListItem({ text: value });
+        list.appendChild(li);
     });
 
     wrapper.appendChild(form);
     wrapper.appendChild(list);
 }
 
-function createForm(props) {
+function createForm(onAdd) {
     const container = document.createElement("div");
     container.className = "form";
 
-    let inputValue = "";
-
     const okButton = createButton({
         text: "OK",
-        className: "btn",
-        disabled: true,
-        onClick: () => {
-            if (typeof props.onAdd === "function") {
-                props.onAdd(inputValue);
-            }
-        }
+        className: "waves-effect waves-light btn",
+        disabled: true
     });
 
     const input = createInput({
         placeholder: "Enter text",
-        onChange: (value) => {
-            inputValue = value;
-            okButton.disabled = value === "";
+    });
+
+    okButton.addEventListener("click", () => {
+        if (typeof onAdd === "function") {
+            onAdd(input.value);
+            input.value = "";
+            okButton.disabled = true;
+            input.focus();
         }
+    });
+
+    input.addEventListener("input", (event) => {
+        const value = event.target.value;
+        okButton.disabled = value === "";
     });
 
     container.appendChild(input);
@@ -52,12 +53,6 @@ function createButton(props) {
 
     const button = document.createElement("button");
 
-    button.addEventListener("click", () => {
-        if (typeof props.onClick === "function") {
-            props.onClick();
-        }
-    });
-
     button.type = "button";
     button.innerHTML = text;
     button.className = className;
@@ -71,17 +66,14 @@ function createInput(props) {
 
     const input = document.createElement("input");
     input.placeholder = placeholder;
-    input.addEventListener("input", function (event) {
-        if (typeof props.onChange === "function") {
-            props.onChange(event.target.value);
-        }
-    });
 
     return input;
 }
 
 function createList() {
     const list = document.createElement("ul");
+    list.className = "users-list";
+
     return list;
 }
 
@@ -91,5 +83,22 @@ function createListItem(props) {
     const element = document.createElement("li");
     element.innerHTML = text;
 
+    const editButton = createButton({
+        text: "Редактировать",
+        className: "waves-effect waves-light btn",
+    });
+
+    const deleteButton = createButton({
+        text: "Удалить",
+        className: "waves-effect waves-light btn red darken-1",
+    });
+
+    element.appendChild(editButton);
+    element.appendChild(deleteButton);
+
     return element;
+}
+
+function createPrompt() {
+    
 }
