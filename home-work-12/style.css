@@ -1,0 +1,16 @@
+#wrapper {
+    padding: 0 15px;
+}
+.square-section {
+    display: flex;
+}
+.square {
+    width: 100px;
+    height: 100px;
+    background: chocolate;
+    margin-right: 15px;
+    text-align: center;
+}
+.counter {
+    font-size: 55px;
+}
