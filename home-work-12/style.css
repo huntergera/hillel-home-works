@@ -3,13 +3,20 @@
 }
 .square-section {
     display: flex;
+    margin-bottom: 20px;
+}
+.square-section--change-color .square {
+    cursor: pointer;
 }
 .square {
     width: 100px;
     height: 100px;
     background: chocolate;
-    margin-right: 15px;
+    margin-right: 25px;
     text-align: center;
+}
+.square:last-child {
+    margin-right: 0;
 }
 .counter {
     font-size: 55px;

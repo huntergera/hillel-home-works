@@ -1,31 +1,36 @@
 'use strict';
-const squareSection = document.querySelector(".square-section");
+const squaresCounter = document.querySelector("#squares-counter");
 
-squareSection.addEventListener("click", function (event) {
+squaresCounter.addEventListener("click", function (event) {
     const target = event.target;
-    if(target.dataset.id === "plus") {
+    if(target.dataset.action === "plus") {
         target.closest('.square').querySelector('.counter').innerHTML++;
-    } else if(target.dataset.id === "minus") {
+    } else if(target.dataset.action === "minus") {
         target.closest('.square').querySelector('.counter').innerHTML--;
     }
 });
 
+const squaresList = document.querySelectorAll("#squares-change-color .square");
+const BLUE = 'blue';
+const GREEN = 'green';
+const YELLOW = 'yellow';
+const defaultColor = 'chocolate';
 
-// for (const square of squareList) {
-//     square.addEventListener("click", function (event) {
-//         if (event.target === btnPlusList[i]) {
-//             console.log(1)
-//         } else if(event.target === btnMin) {
-//             console.log(2)
-//         }
-//     })
-// }
-//
-// btnPlus.addEventListener("click", (counter) => {
-//     return counter++
-// })
-//
-// btnMin.addEventListener("click", () => {
-//     x -= step;
-//     square.style.transform = `translateX(${x}px)`;
-// })
+for (let i = 0; i < squaresList.length; i++) {
+    const target = squaresList[i];
+    target.addEventListener("click", function changeColor() {
+        switch (target.style.backgroundColor) {
+            case BLUE:
+                target.style.backgroundColor = GREEN;
+                break;
+            case GREEN:
+                target.style.backgroundColor = YELLOW;
+                break;
+            case YELLOW:
+                target.style.backgroundColor = defaultColor;
+                break;
+            default:
+                target.style.backgroundColor = BLUE;
+        }
+    });
+}
