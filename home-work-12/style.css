@@ -21,3 +21,14 @@
 .counter {
     font-size: 55px;
 }
+.list {
+    display: inline-block;
+}
+.list .list__item {
+    list-style: none;
+    margin: 10px 0;
+    cursor: pointer;
+}
+.red {
+    background: red;
+}
