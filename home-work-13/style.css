@@ -1,0 +1,14 @@
+#wrapper {
+    padding: 15px;
+}
+form {
+    width: 500px;
+    margin: 0 auto;
+}
+.field-row {
+    display: flex;
+}
+#eyeBtn {
+    margin-left: 10px;
+    min-width: 75px;
+}
