@@ -14,29 +14,18 @@ squaresCounter.addEventListener("click", function (event) {
 
 //2 task
 const squaresList = document.querySelectorAll("#squares-change-color .square");
-const BLUE = 'blue';
-const GREEN = 'green';
-const YELLOW = 'yellow';
+const colorsList = ['blue', 'green', 'yellow'];
 
 for (const square of squaresList) {
     square.addEventListener("click", () => changeColor(square))
 }
 
 function changeColor(target) {
-    switch (target.style.backgroundColor) {
-        case BLUE:
-            target.style.backgroundColor = GREEN;
-            break;
-        case GREEN:
-            target.style.backgroundColor = YELLOW;
-            break;
-        case YELLOW:
-            target.style.backgroundColor = BLUE;
-            break;
-        default:
-            target.style.backgroundColor = BLUE;
-    }
-};
+    const colorIndex = colorsList.findIndex(color => color === target.style.backgroundColor);
+    colorIndex === colorsList.length - 1 || colorIndex === -1
+        ? target.style.backgroundColor = colorsList[0]
+        : target.style.backgroundColor = colorsList[colorIndex + 1];
+}
 
 //3 task
 const listItems = document.querySelectorAll(".list .list__item");
