@@ -78,7 +78,7 @@ function createList() {
 }
 
 function createListItem(props) {
-    const text = props.text || "";
+    let text = props.text || "";
 
     const element = document.createElement("li");
     element.innerHTML = text;
@@ -94,7 +94,20 @@ function createListItem(props) {
     });
 
     editButton.addEventListener("click", () => {
-        createPrompt();
+        text = createPrompt({
+            placeholder: 'Введите новое имя',
+            defaultText: text
+        });
+        element.innerHTML = text;
+        element.appendChild(editButton);
+        element.appendChild(deleteButton);
+    });
+
+    deleteButton.addEventListener("click", () => {
+        text = createConfirm('Удалить данного пользователя?');
+        if (text) {
+            element.remove();
+        }
     });
 
     element.appendChild(editButton);
@@ -103,8 +116,12 @@ function createListItem(props) {
     return element;
 }
 
-function createPrompt() {
-    const prompt = prompt('Введите новое имя' );
-console.log(prompt)
-    return prompt;
+function createPrompt(props) {
+    const promptValue = prompt(props.placeholder, props.defaultText );
+    return promptValue;
+}
+
+function createConfirm(question) {
+    const isTrue = confirm(question);
+    return isTrue;
 }
