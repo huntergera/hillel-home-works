@@ -1,10 +1,17 @@
 'use strict';
 const wrapper = document.querySelector("#wrapper");
+const arrayOfNames = ['Jon', 'Peter', 'Bob'];
+
 if (wrapper !== null) {
     const list = createList();
+    arrayOfNames.forEach(name => {
+            const li = createListItem({text: name});
+            list.appendChild(li);
+        }
+    );
 
     const form = createForm((value) => {
-        const li = createListItem({ text: value });
+        const li = createListItem({text: value});
         list.appendChild(li);
     });
 
@@ -117,7 +124,7 @@ function createListItem(props) {
 }
 
 function createPrompt(props) {
-    const promptValue = prompt(props.placeholder, props.defaultText );
+    const promptValue = prompt(props.placeholder, props.defaultText);
     return promptValue;
 }
 
