@@ -5,10 +5,10 @@ form {
     width: 500px;
     margin: 0 auto;
 }
-.field-row {
+.input-row {
     display: flex;
 }
-#eyeBtn {
+.input-row .btn {
     margin-left: 10px;
     min-width: 75px;
 }

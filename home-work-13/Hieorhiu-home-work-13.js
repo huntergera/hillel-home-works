@@ -1,4 +1,132 @@
 'use strict';
+const wrapper = document.querySelector("#wrapper");
+
+if (wrapper !== null) {
+
+    const form = createForm();
+
+    wrapper.appendChild(form);
+}
+
+function createForm() {
+    const container = document.createElement("form");
+    container.className = "loginForm";
+
+    const submitButton = createButton({
+        text: "SUBMIT",
+        className: "waves-effect waves-light btn",
+        disabled: true
+    });
+
+    const showPasswordButton = createButton({
+        text: "SHOW",
+        className: "btn blue",
+    });
+
+    const emailInput = createInput({
+        placeholder: "Email",
+        id: "email"
+    });
+
+    const passwordInput = createInput({
+        placeholder: "Password",
+        type: "password",
+        id: "password"
+    });
+
+    showPasswordButton.addEventListener("click", () => {
+        const passwordInputCreated = document.querySelector("#password");
+        passwordInputCreated.type =  passwordInputCreated.type === "password" ? "text" : "password";
+        const buttonText = showPasswordButton.innerHTML;
+        showPasswordButton.innerHTML = buttonText === "SHOW" ? "HIDE" : "SHOW";
+    });
+
+
+    emailInput.addEventListener("input", (event) => {
+        const value = event.target.value;
+        submitButton.disabled = value === "";
+    });
+
+    container.appendChild(emailInput);
+    container.appendChild(passwordInput);
+    passwordInput.appendChild(showPasswordButton);
+    container.appendChild(submitButton);
+
+    isFormValid({
+        emailInput: emailInput,
+        passwordInput: passwordInput,
+    });
+
+    return container;
+}
+
+function isFormValid(props) {
+    if (props.emailInput !== null) {
+        const input = props.emailInput.querySelector("#email");
+        input.addEventListener("input", () => {
+            validateEmail(input) === false ? props.emailInput.classList.add("error") : props.emailInput.classList.remove("error")
+        })
+    }
+
+    if (props.passwordInput !== null) {
+        const input = props.passwordInput.querySelector("#password");
+        input.addEventListener("input", () => {
+            validatePassword(input) === false ? props.passwordInput.classList.add("error") : props.passwordInput.classList.remove("error")
+        })
+    }
+
+    return false
+}
+
+function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email.value);
+}
+
+function validatePassword(email) {
+
+}
+
+
+function createButton(props) {
+    const text = props.text || "";
+    const className = props.className || "";
+    const disabled = props.disabled || false;
+
+    const button = document.createElement("button");
+
+    button.type = "button";
+    button.innerHTML = text;
+    button.className = className;
+    button.disabled = disabled;
+
+    return button;
+}
+
+function createInput(props) {
+    const inputWrapper = document.createElement("div");
+    inputWrapper.className = "input-row";
+
+    const placeholder = props.placeholder || "";
+    const inputType =  props.type || "text";
+    const inputId =  props.id || "";
+
+    const input = document.createElement("input");
+    input.placeholder = placeholder;
+    input.type = inputType;
+    input.id = inputId;
+
+    inputWrapper.appendChild(input);
+
+    return inputWrapper;
+}
+
+
+
+
+
+
+
 const form = document.querySelector("form");
 const passwordVisibility = document.querySelector("#eyeBtn");
 const password = document.querySelector("form input[type=\"password\"]");
@@ -43,14 +171,14 @@ function isValidForm() {
     return true
 }
 
-email.addEventListener("blur", () => {
-    const reg = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return reg.test(arg.value);
-}
+// email.addEventListener("blur", () => {
+//     const reg = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+//     return reg.test(arg.value);
+// })
 
-function isValidEmail(arg) {
-
-}
+// function isValidEmail(arg) {
+//
+// }
 
 
 
