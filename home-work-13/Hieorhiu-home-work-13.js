@@ -83,8 +83,56 @@ function validateEmail(email) {
     return re.test(email.value);
 }
 
-function validatePassword(email) {
+function validatePassword(password) {
+    if (
+        // password.value.length >= 8
+        someIsNumber(password)
+        // && isContainSymbol(password)
+    ) {
+        console.log('validate true')
+        return true;
+    }
+    console.log('validate false')
+    return false;
+}
 
+function someIsNumber(element) {
+    console.log(element.value)
+    for (let item of element.value) {
+        console.log(typeof +item, item);
+        if (!Number.isNaN(+item)) {
+            console.log('number true', !Number.isNaN(item))
+            return  true;
+        }
+        console.log('number false', !Number.isNaN(item))
+        return false;
+    }
+    // value.forEach( element => {
+    //     if (!Number.isNaN(element)) {
+    //         console.log('number true')
+    //         return  true;
+    //     }
+    //     console.log('number false')
+    //     return false;
+    // });
+    //console.log(typeof element)
+    //element.value.some(elem => Number.isNaN(+elem));
+   // password.some(elem => Number.isNaN(elem))
+}
+
+function isContainSymbol(array) {
+    const symbolArray = ["@", "$", "#", "!", "?", "&"];
+    for (let i = 0; i < symbolArray.length; i++) {
+        for (let j = 0; j < array.length; j++) {
+            console.log(symbolArray[i], array[j])
+            if (symbolArray[i] === array[j]) {
+                console.log('true')
+                return true;
+            }
+        }
+        console.log('false');
+        return false;
+    }
 }
 
 
