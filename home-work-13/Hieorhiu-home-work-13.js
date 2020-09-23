@@ -42,20 +42,32 @@ function createForm() {
     });
 
 
-    emailInput.addEventListener("input", (event) => {
-        const value = event.target.value;
-        submitButton.disabled = value === "";
-    });
+    // emailInput.addEventListener("input", (event) => {
+    //     const value = event.target.value;
+    //     submitButton.disabled = value === "";
+    // });
 
     container.appendChild(emailInput);
     container.appendChild(passwordInput);
     passwordInput.appendChild(showPasswordButton);
     container.appendChild(submitButton);
 
-    isFormValid({
-        emailInput: emailInput,
-        passwordInput: passwordInput,
-    });
+    container.addEventListener('input', () => {
+        console.log(isFormValid({
+            emailInput: emailInput,
+            passwordInput: passwordInput,
+        }))
+        if (isFormValid({
+            emailInput: emailInput,
+            passwordInput: passwordInput,
+        }) === 5) {
+            console.log(12)
+            submitButton.disabled = true;
+        } else {
+            console.log(23)
+            submitButton.disabled = false;
+        }
+    })
 
     return container;
 }
@@ -64,18 +76,32 @@ function isFormValid(props) {
     if (props.emailInput !== null) {
         const input = props.emailInput.querySelector("#email");
         input.addEventListener("input", () => {
-            validateEmail(input) === false ? props.emailInput.classList.add("error") : props.emailInput.classList.remove("error")
+            if (validateEmail(input) === false) {
+                props.emailInput.classList.add("error");
+                const validFlag = 5;
+                console.log(validFlag, " first")
+                return validFlag;
+            }   else {
+                props.emailInput.classList.remove("error")
+            }
         })
     }
 
     if (props.passwordInput !== null) {
         const input = props.passwordInput.querySelector("#password");
         input.addEventListener("input", () => {
-            validatePassword(input) === false ? props.passwordInput.classList.add("error") : props.passwordInput.classList.remove("error")
+            if (validatePassword(input) === false) {
+                props.passwordInput.classList.add("error");
+                const validFlag = 5;
+                console.log(validFlag, " second")
+                return validFlag;
+            }   else {
+                props.passwordInput.classList.remove("error")
+                console.log('passwordInput')
+            }
         })
     }
 
-    return true
 }
 
 function validateEmail(email) {
@@ -85,9 +111,9 @@ function validateEmail(email) {
 
 function validatePassword(password) {
     if (
-        // password.value.length >= 8
-        // && someIsNumber(password)
-        isContainSymbol(password)
+        password.value.length >= 8
+        && someIsNumber(password)
+        && isContainSymbol(password)
     ) {
         console.log('validate true')
         return true;
@@ -108,19 +134,14 @@ function someIsNumber(element) {
 function isContainSymbol(array) {
     const symbolArray = ["@", "$", "#", "!", "?", "&"];
     for (let i = 0; i < symbolArray.length; i++) {
-        for (let j = 0; j < array.length; j++) {
-    console.log(1)
-            console.log(symbolArray[i], array[j])
-            if (symbolArray[i] === array[j]) {
-                console.log('true')
+        for (let j = 0; j < array.value.length; j++) {
+            if (symbolArray[i] === array.value[j]) {
                 return true;
             }
         }
     }
-    console.log('false');
     return false;
 }
-
 
 function createButton(props) {
     const text = props.text || "";
@@ -154,71 +175,3 @@ function createInput(props) {
 
     return inputWrapper;
 }
-
-
-
-
-
-
-
-// const form = document.querySelector("form");
-// const passwordVisibility = document.querySelector("#eyeBtn");
-// const password = document.querySelector("form input[type=\"password\"]");
-// const email = document.querySelector("#email");
-//
-// form.addEventListener("submit", event =>{
-//     event.preventDefault();
-//     if(isValidForm()) {
-//
-//         const result = Array.from(form.elements)
-//             .filter(element => isInput(element))
-//             .reduce((acc, element) => {
-//                 const name = element.name;
-//                 const value = element.value;
-//
-//                 acc[name] = value;
-//                 return acc;
-//             }, {});
-//
-//         const customEvent = new CustomEvent("myFormCompleted", {detail: result});
-//         document.dispatchEvent(customEvent);
-//     }
-// });
-//
-// document.addEventListener("myFormCompleted", event => {
-//     console.log(event.detail);
-// });
-//
-// function isInput(element) {
-//     return element instanceof HTMLInputElement;
-// }
-//
-// function isValidForm() {
-//     if(isValidEmail()) {
-//         email.classList.remove('error');
-//
-//     } else {
-//         email.classList.add('error');
-//         return false
-//     }
-//
-//     return true
-// }
-//
-// // email.addEventListener("blur", () => {
-// //     const reg = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-// //     return reg.test(arg.value);
-// // })
-//
-// // function isValidEmail(arg) {
-// //
-// // }
-//
-//
-//
-// passwordVisibility.addEventListener("click", () => {
-//     password.type = password.type === "password" ? "text" : "password";
-//
-//     const buttonText = passwordVisibility.innerHTML;
-//     passwordVisibility.innerHTML = buttonText === "SHOW" ? "HIDE" : "SHOW";
-// });

@@ -8,6 +8,9 @@ form {
 .input-row {
     display: flex;
 }
+.input-row.error input {
+    border-bottom: 1px solid red;
+}
 .input-row .btn {
     margin-left: 10px;
     min-width: 75px;
