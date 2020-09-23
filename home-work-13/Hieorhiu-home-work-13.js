@@ -86,8 +86,8 @@ function validateEmail(email) {
 function validatePassword(password) {
     if (
         // password.value.length >= 8
-        someIsNumber(password)
-        // && isContainSymbol(password)
+        // && someIsNumber(password)
+        isContainSymbol(password)
     ) {
         console.log('validate true')
         return true;
@@ -97,43 +97,28 @@ function validatePassword(password) {
 }
 
 function someIsNumber(element) {
-    console.log(element.value)
-    const ert = element.value;
-    for (let item of ert) {
-        console.log(typeof +item, item);
+    for (let item of element.value) {
         if (!Number.isNaN(+item)) {
-            console.log('number true', !Number.isNaN(item))
             return  true;
         }
-        console.log('number false', !Number.isNaN(item))
-        return false;
     }
-    // element.value.forEach( item => {
-    //     if (!Number.isNaN(item)) {
-    //         console.log('number true', item)
-    //         return  true;
-    //     }
-    //     console.log('number false')
-    //     return false;
-    // });
-    //console.log(typeof element)
-    //element.value.some(elem => Number.isNaN(+elem));
-   // password.some(elem => Number.isNaN(elem))
+    return false;
 }
 
 function isContainSymbol(array) {
     const symbolArray = ["@", "$", "#", "!", "?", "&"];
     for (let i = 0; i < symbolArray.length; i++) {
         for (let j = 0; j < array.length; j++) {
+    console.log(1)
             console.log(symbolArray[i], array[j])
             if (symbolArray[i] === array[j]) {
                 console.log('true')
                 return true;
             }
         }
-        console.log('false');
-        return false;
     }
+    console.log('false');
+    return false;
 }
 
 
