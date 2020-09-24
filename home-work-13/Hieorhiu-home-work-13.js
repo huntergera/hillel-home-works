@@ -60,7 +60,7 @@ function createForm() {
         if (isFormValid({
             emailInput: emailInput,
             passwordInput: passwordInput,
-        }) === 5) {
+        }) === -1) {
             console.log(12)
             submitButton.disabled = true;
         } else {
@@ -73,13 +73,13 @@ function createForm() {
 }
 
 function isFormValid(props) {
+    let validFlag = 1;
     if (props.emailInput !== null) {
         const input = props.emailInput.querySelector("#email");
         input.addEventListener("input", () => {
             if (validateEmail(input) === false) {
                 props.emailInput.classList.add("error");
-                const validFlag = 5;
-                console.log(validFlag, " first")
+                validFlag = -1;
                 return validFlag;
             }   else {
                 props.emailInput.classList.remove("error")
@@ -92,16 +92,13 @@ function isFormValid(props) {
         input.addEventListener("input", () => {
             if (validatePassword(input) === false) {
                 props.passwordInput.classList.add("error");
-                const validFlag = 5;
-                console.log(validFlag, " second")
-                return validFlag;
+                validFlag = -1;
             }   else {
                 props.passwordInput.classList.remove("error")
-                console.log('passwordInput')
             }
         })
     }
-
+    return validFlag;
 }
 
 function validateEmail(email) {
