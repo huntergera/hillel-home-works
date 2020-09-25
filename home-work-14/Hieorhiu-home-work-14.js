@@ -1,28 +1,20 @@
 'use strict';
-function Unit(type, health, maxHealth, maxDistance) {
-    this.type = type;
-    this.health = health;
-    this.maxHealth = maxHealth;
-    this.maxDistance = maxDistance;
-}
+const unit = new Unit("paladin", 900, 1300, 9);
+console.log(unit.clone());
 
-Unit.prototype.isReadyToMove;
-Unit.prototype.isReadyToFight;
-Unit.prototype.restore;
-Unit.prototype.clone;
+const unitsArray = [
+    new Unit("archer", 300, 900, 5),
+    new Unit("swordsman", 1000, 1200, 7),
+    new Unit("griffin", 1400, 1500, 20),
+    new Unit("archangel", 3000, 3000, 15)
+];
 
-function Army(defaultUnits) {
-    this.units = [];
-    if (defaultUnits) this.combineUnits(defaultUnits);
-}
-
-Army.prototype.isReadyToMove;
-Army.prototype.isReadyToFight;
-Army.prototype.restore;
-Army.prototype.getReadyToMoveUnits;
-Army.prototype.combineUnits;
-Army.prototype.cloneUnit;
-
+const unitsArray2 = [
+    new Unit("archer", 800, 900, 5),
+    new Unit("swordsman", 1000, 1200, 7),
+    new Unit("griffin", 1400, 1500, 20),
+    new Unit("archangel", 3000, 3000, 15)
+];
 
 class Unit {
     constructor(type, health, maxHealth, maxDistance) {
@@ -32,16 +24,12 @@ class Unit {
         this.maxDistance = maxDistance;
     }
 
-    isReadyToFight () {
-        if (this.health >= this.maxHealth / 2) {
-            console.log("Unit is ready to fight");
-        } else {
-            console.log("Unit is not ready to fight");
-        }
+    isReadyToMove(distance) {
+        return distance <= this.maxDistance;
     }
 
-    isReadyToMove() {
-
+    isReadyToFight () {
+        return this.health >= this.maxHealth / 2;
     }
 
     restore() {
@@ -51,6 +39,57 @@ class Unit {
     }
 
     clone() {
-
+        const unit = new Unit(this.type, this.health, this.maxHealth, this.maxDistance);
+        return unit;
     }
 }
+
+class Army {
+    constructor(units, unitsAdded) {
+        this.units = units;
+        if (unitsAdded) this.units = this.units.concat(unitsAdded);
+    }
+
+    isReadyToMove(distance) {
+        for (let unit of this.units) {
+            return unit.isReadyToMove(distance);
+        }
+    }
+
+    isReadyToFight () {
+        for (let unit of this.units) {
+            return unit.isReadyToFight();
+        }
+    }
+
+    restore() {
+        for (let unit of this.units) {
+            unit.restore();
+        }
+    }
+
+    getReadyToMoveUnits(distance) {
+        const unitsReadyToMove = [];
+        for (let unit of this.units) {
+            if (unit.isReadyToMove(distance)) {
+                unitsReadyToMove.push(unit);
+            }
+        }
+        return unitsReadyToMove;
+    }
+
+    combineUnits(units) {
+        return this.units = this.units.concat(units);
+    }
+
+    cloneUnit(number) {
+        if (this.units[number - 1]) {
+            const unit = new Unit(this.units[number - 1].type, this.units[number - 1].health, this.units[number - 1].maxHealth, this.units[number - 1].maxDistance);
+            return unit;
+        } else {
+            throw new Error("Invalid number of unit");
+        }
+    }
+}
+
+const army = new Army(unitsArray, unitsArray2);
