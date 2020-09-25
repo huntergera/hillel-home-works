@@ -1,6 +1,5 @@
 'use strict';
 const unit = new Unit("paladin", 900, 1300, 9);
-console.log(unit.clone());
 
 const unitsArray = [
     new Unit("archer", 300, 900, 5),
