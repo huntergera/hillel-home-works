@@ -1,82 +1,77 @@
 'use strict';
 
-
 const wrapper = document.querySelector("#wrapper");
-const colorsList = ["red", "green", "yellow", "blue", "pink","purple", "brown"];
-//
+const colorsList = ["red", "green", "orange", "blue", "pink","purple", "brown"];
+const selectFormat = document.querySelector("#select-format");
+const dateFormatsArray = {
+    localFormat : function localFormat() {
+        const date = new Date();
+        const hour = date.getHours();
+        const minute = date.getMinutes();
+        const seconds = date.getSeconds();
+        const minuteFormatted = minute < 10 ? "0" + minute : minute;
+        const secondsFormatted = seconds < 10 ? "0" + seconds : seconds;
+
+        return hour + ":" + minuteFormatted + ":" + secondsFormatted;
+    },
+    usaFormat : function usaFormat() {
+        const date = new Date();
+        const hour = date.getHours();
+        const minute = date.getMinutes();
+        const hourFormatted = hour % 12 || 12;
+        const minuteFormatted = minute < 10 ? "0" + minute : minute;
+        const morning = hour < 12 ? "am" : "pm";
+
+        return hourFormatted + ":" + minuteFormatted + " " + morning;
+    }
+};
+
 if (wrapper !== null) {
     const container = document.createElement("div");
     container.className = "date-wrap";
-    wrapper.appendChild(container);
+    wrapper.prepend(container);
+    let format = dateFormatsArray.localFormat;
+
+    selectFormat.addEventListener("change", (event) => {
+        let formatKey = event.target.value;
+        if (dateFormatsArray[formatKey]) {
+            format = dateFormatsArray[formatKey];
+            container.innerHTML = '';
+            displayDate(format);
+        }
+    });
 
     setInterval(() => {
         container.innerHTML = '';
-        const date = displayDate();
-        for (let item of date) {
-            container.appendChild(item)
-            setColor(item, date);
-
-            // colorIndex === colorsList.length - 1 || colorIndex === -1
-            //     ? item[i].style.backgroundColor = colorsList[0]
-            //     : item[i].style.backgroundColor = colorsList[colorIndex + 1];
-        }
+        displayDate(format);
     }, 1000);
+
+    addFormats();
 }
 
-function setColor(item, date) {
-    const itemIndex = date.indexOf(item);
-    console.log(itemIndex)
+function displayDate(format) {
+    const container = document.querySelector(".date-wrap");
+    const time = format();
 
-    //if (itemIndex > colorsList.length - 1) {
-        item.style.color = colorsList[Math.floor(Math.random() * colorsList.length)]
-    // } else {
-    //     item.style.color = colorsList[itemIndex];
-    // }
-}
-
-function displayDate() {
-    const now = new Date();
-    const time = localFormat(now);
-    const timeFormatted = [];
     for (let item of time) {
-        //console.log(item)
         const itemWrapper = document.createElement("span");
         itemWrapper.className = "item-wrap";
-
         itemWrapper.innerHTML = item;
-
-        timeFormatted.push(itemWrapper);
-        //console.log(timeFormatted)
-
-        //console.log(itemWrapper)
-
-        // const colorIndex = colorsList.findIndex(color => color === item.style.backgroundColor);
-        // colorIndex === colorsList.length - 1 || colorIndex === -1
-        //     ? item[i].style.backgroundColor = colorsList[0]
-        //     : item[i].style.backgroundColor = colorsList[colorIndex + 1];
+        container.appendChild(itemWrapper);
+        itemWrapper.style.color = colorsList[Math.floor(Math.random() * colorsList.length)]
     }
+
     console.clear();
     console.log(time);
-    return timeFormatted;
 }
 
-function usaFormat(date) {
-    const hour = date.getHours();
-    const minute = date.getMinutes();
-    const hourFormatted = hour % 12 || 12; // hour returned in 24 hour format
-    const minuteFormatted = minute < 10 ? "0" + minute : minute;
-    const morning = hour < 12 ? "am" : "pm";
-
-    return hourFormatted + ":" + minuteFormatted + " " + morning;
-}
-
-function localFormat(date) {
-    const hour = date.getHours();
-    const minute = date.getMinutes();
-    const seconds = date.getSeconds();
-    const minuteFormatted = minute < 10 ? "0" + minute : minute;
-    const secondsFormatted = seconds < 10 ? "0" + seconds : seconds;
-
-    return hour + ":" + minuteFormatted + ":" + secondsFormatted;
+function addFormats() {
+    Object.keys(dateFormatsArray).forEach(element => {
+        const selectItem = document.createElement('option');
+        selectItem.text = element;
+        selectItem.value = element;
+        selectItem.className = "format-item";
+        selectFormat.appendChild(selectItem);
+    })
 }
 
