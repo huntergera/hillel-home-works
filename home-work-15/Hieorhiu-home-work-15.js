@@ -2,30 +2,37 @@
 
 
 const wrapper = document.querySelector("#wrapper");
-const colorsList = ["red", "green", "yellow", "blue"];
-
+const colorsList = ["red", "green", "yellow", "blue", "pink","purple", "brown"];
+//
 if (wrapper !== null) {
     const container = document.createElement("div");
     container.className = "date-wrap";
     wrapper.appendChild(container);
 
     setInterval(() => {
-        container.innerHtml = 'dfg';
-        console.log(container.innerHtml)
+        container.innerHTML = '';
         const date = displayDate();
         for (let item of date) {
             container.appendChild(item)
-        }
-        console.log(container.innerHtml)
-        container.innerHtml = '';
-        //console.log(date)
-        //container.innerHTML = date;
-        // console.clear();
-        // console.log(date);
-    }, 1000);
+            setColor(item, date);
 
+            // colorIndex === colorsList.length - 1 || colorIndex === -1
+            //     ? item[i].style.backgroundColor = colorsList[0]
+            //     : item[i].style.backgroundColor = colorsList[colorIndex + 1];
+        }
+    }, 1000);
 }
 
+function setColor(item, date) {
+    const itemIndex = date.indexOf(item);
+    console.log(itemIndex)
+
+    //if (itemIndex > colorsList.length - 1) {
+        item.style.color = colorsList[Math.floor(Math.random() * colorsList.length)]
+    // } else {
+    //     item.style.color = colorsList[itemIndex];
+    // }
+}
 
 function displayDate() {
     const now = new Date();
@@ -48,6 +55,8 @@ function displayDate() {
         //     ? item[i].style.backgroundColor = colorsList[0]
         //     : item[i].style.backgroundColor = colorsList[colorIndex + 1];
     }
+    console.clear();
+    console.log(time);
     return timeFormatted;
 }
 
