@@ -1,18 +1,11 @@
 'use strict';
 document.addEventListener("DOMContentLoaded", function(event) {
     const wrapper = document.querySelector("#wrapper");
-    let arrayOfNames = [];
-
-    try {
-        getItemsFromLocalStorage();
-    } catch (e) {
-        console.error("Error during getItemsFromLocalStorage", e);
-    }
 
     if (wrapper !== null) {
         const list = createList();
-        if (arrayOfNames !== null) {
-            arrayOfNames.forEach(name => {
+        if (getItemsFromLocalStorage() !== null) {
+            getItemsFromLocalStorage().forEach(name => {
                     const li = createListItem({text: name});
                     list.appendChild(li);
                 }
@@ -134,7 +127,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     function getItemsFromLocalStorage() {
-        arrayOfNames = JSON.parse(localStorage.getItem('usersNames'));
+        try {
+            return JSON.parse(localStorage.getItem('usersNames'));
+        } catch (e) {
+            return [];
+        }
     }
 
 });
