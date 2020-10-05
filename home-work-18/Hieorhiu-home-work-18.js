@@ -137,4 +137,3 @@ class CharacterList {
 
 const list = new CharacterList();
 list.render();
-
