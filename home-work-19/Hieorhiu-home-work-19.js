@@ -39,76 +39,25 @@ class CharacterList {
         searchParams.set("page", this.page);
 
         let xhr = fetch(`${BASE_URL}?${searchParams}`)
-            .then(response => response.json())
             .then(
-                data => {
-                    if (data.status === 200) {
-                        this.data = {
-                            hasNextPage: data.info.next !== null,
-                            hasPrevPage: data.prev !== null,
-                            results: data.results
-                        };
-                        console.log(data)
-                        this.onDataLoad();
-                    } else {
+                successResponse => {
+                    if (successResponse.status != 200) {
                         return null;
+                    } else {
+                        return successResponse.json();
                     }
                 },
-                failResponse => {
-                    return null;
-                }
             )
-
-
-        // let xhr = fetch(`${BASE_URL}?${searchParams}`).then(
-        //     successResponse => {
-        //         if (successResponse.status === 200) {
-        //             this.data = {
-        //                 hasNextPage: xhr.response.info.next !== null,
-        //                 hasPrevPage: xhr.response.info.prev !== null,
-        //                 results: response.results
-        //             };
-        //             this.onDataLoad();
-        //         } else {
-        //             return null;
-        //         }
-        //     },
-        //     failResponse => {
-        //         return null;
-        //     }
-        // )
-
-
-
-        // return new Promise((resolve, reject) => {
-        //     const xhr = new XMLHttpRequest();
-        //     xhr.responseType = "json";
-        //
-        //     const searchParams = new URLSearchParams();
-        //     searchParams.set("page", this.page);
-        //
-        //     xhr.open("GET", `${BASE_URL}?${searchParams}`);
-        //     // xhr.setRequestHeader("X-AUTH", "fa3d00e1-b426-4e5b-b7f3-29bbca8d0c77");
-        //
-        //     xhr.onload = () => {
-        //         if (xhr.status === 200) {
-        //             this.data = {
-        //                 hasNextPage: xhr.response.info.next !== null,
-        //                 hasPrevPage: xhr.response.info.prev !== null,
-        //                 results: xhr.response.results
-        //             };
-        //             this.onDataLoad();
-        //         } else {
-        //             reject(new Error("Something went wrong"));
-        //         }
-        //     };
-        //
-        //     xhr.onerror = function () {
-        //         reject(new Error("Something went wrong"));
-        //     };
-        //
-        //     xhr.send();
-        // })
+            .then(
+                data => {
+                    this.data = {
+                        hasNextPage: data.info.next !== null,
+                        hasPrevPage: data.info.prev !== null,
+                        results: data.results
+                    };
+                    this.onDataLoad();
+                },
+            )
     }
 
     onDataLoad() {
