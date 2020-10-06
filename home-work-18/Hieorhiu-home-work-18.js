@@ -58,7 +58,7 @@ class CharacterList {
 
         xhr.onerror = function () {
             console.error("ERROR");
-        }
+        };
 
         xhr.send();
     }
@@ -137,4 +137,3 @@ class CharacterList {
 
 const list = new CharacterList();
 list.render();
-
