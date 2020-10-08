@@ -34,33 +34,30 @@ class CharacterList {
     }
 
     loadCharacters() {
-        const xhr = new XMLHttpRequest();
-        xhr.responseType = "json";
 
-        const searchParams = new URLSearchParams();
+        const searchParams = new URLSearchParams({ page: 10 });
         searchParams.set("page", this.page);
 
-        xhr.open("GET", `${BASE_URL}?${searchParams}`);
-        xhr.setRequestHeader("X-AUTH", "fa3d00e1-b426-4e5b-b7f3-29bbca8d0c77");
-
-        xhr.onload = () => {
-            if (xhr.status === 200) {
-                this.data = {
-                    hasNextPage: xhr.response.info.next !== null,
-                    hasPrevPage: xhr.response.info.prev !== null,
-                    results: xhr.response.results
-                };
-                this.onDataLoad();
-            } else {
-                console.error("Something went wrong");
-            }
-        };
-
-        xhr.onerror = function () {
-            console.error("ERROR");
-        };
-
-        xhr.send();
+        let xhr = fetch(`${BASE_URL}?${searchParams}`)
+            .then(
+                successResponse => {
+                    if (successResponse.status != 200) {
+                        return null;
+                    } else {
+                        return successResponse.json();
+                    }
+                },
+            )
+            .then(
+                data => {
+                    this.data = {
+                        hasNextPage: data.info.next !== null,
+                        hasPrevPage: data.info.prev !== null,
+                        results: data.results
+                    };
+                    this.onDataLoad();
+                },
+            )
     }
 
     onDataLoad() {
@@ -79,6 +76,7 @@ class CharacterList {
     }
 
     onButtonClick(event) {
+        //console.log(event, this);
         switch (event.target.dataset.type) {
             case buttonTypes.next: {
                 this.page++;
