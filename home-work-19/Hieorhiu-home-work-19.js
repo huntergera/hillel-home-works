@@ -38,13 +38,13 @@ class CharacterList {
         const searchParams = new URLSearchParams({ page: 10 });
         searchParams.set("page", this.page);
 
-        let xhr = fetch(`${BASE_URL}?${searchParams}`)
+        return fetch(`${BASE_URL}?${searchParams}`)
             .then(
                 successResponse => {
-                    if (successResponse.status != 200) {
-                        return null;
-                    } else {
+                    if (successResponse.status === 200) {
                         return successResponse.json();
+                    } else {
+                        throw new Error("Error loading data");
                     }
                 },
             )
@@ -76,7 +76,6 @@ class CharacterList {
     }
 
     onButtonClick(event) {
-        //console.log(event, this);
         switch (event.target.dataset.type) {
             case buttonTypes.next: {
                 this.page++;
