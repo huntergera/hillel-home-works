@@ -12,25 +12,51 @@ const keyCodes = Object.freeze({
     arrowRight: "ArrowRight"
 });
 
+class Button {
+    constructor(props) {
+        this.button = document.createElement("button");
+        this.button.innerText = props.text || "";
+        this.button.dataset.type = props.dataset || "";
+        this.button.className = props.className || "";
+    }
+
+    render() {
+        return this.button;
+    }
+
+    setDisabled(disabled) {
+        this.button.disabled = disabled;
+    }
+
+    onClick(cb) {
+        this.button.addEventListener("click", cb);
+    }
+}
+
+class Text {
+    constructor(props) {
+        this.text = document.createElement("span");
+        this.text.innerText = props.text || "";
+        this.text.className = props.className || "";
+    }
+
+    setText(value) {
+        this.text.innerText = value;
+    }
+
+    render() {
+        return this.text;
+    }
+}
+
 class CharacterList {
     constructor() {
         this.page = 1;
         this.data = {};
-
         this.list = document.createElement("ul");
-
-        this.prevButton = document.createElement("button");
-        this.prevButton.className = "waves-effect waves-light btn";
-        this.prevButton.innerText = "PREV";
-        this.prevButton.dataset.type = buttonTypes.prev;
-
-        this.nextButton = document.createElement("button");
-        this.nextButton.className = "waves-effect waves-light btn";
-        this.nextButton.innerText = "NEXT";
-        this.nextButton.dataset.type = buttonTypes.next;
-
-        this.pageLabel = document.createElement("span");
-        this.pageLabel.className = "page";
+        this.prevButton = new Button({ text: "PREV", dataset: "prev", className: "waves-effect waves-light btn"});
+        this.nextButton = new Button({ text: "NEXT", dataset: "next", className: "waves-effect waves-light btn" });
+        this.pageLabel = new Text({text: this.page, className: "page"});
     }
 
     loadCharacters() {
@@ -38,7 +64,7 @@ class CharacterList {
         const searchParams = new URLSearchParams({ page: 10 });
         searchParams.set("page", this.page);
 
-        return fetch(`${BASE_URL}?${searchParams}`)
+        fetch(`${BASE_URL}?${searchParams}`)
             .then(
                 successResponse => {
                     if (successResponse.status === 200) {
@@ -69,10 +95,9 @@ class CharacterList {
             this.list.appendChild(listItem);
         }
 
-        this.pageLabel.innerText = this.page;
-
-        this.prevButton.disabled = !this.data.hasPrevPage;
-        this.nextButton.disabled = !this.data.hasNextPage;
+        this.pageLabel.setText(this.page);
+        this.prevButton.setDisabled(!this.data.hasPrevPage);
+        this.nextButton.setDisabled(!this.data.hasNextPage);
     }
 
     onButtonClick(event) {
@@ -115,14 +140,14 @@ class CharacterList {
         [
             this.nextButton,
             this.prevButton
-        ].forEach(button => button.addEventListener("click", this.onButtonClick.bind(this)));
+        ].forEach(button => button.onClick(this.onButtonClick.bind(this)));
 
         document.addEventListener("keydown", this.onKeyDown.bind(this));
 
         const paginatorWrapper = document.createElement("div");
-        paginatorWrapper.appendChild(this.prevButton);
-        paginatorWrapper.appendChild(this.pageLabel);
-        paginatorWrapper.appendChild(this.nextButton);
+        paginatorWrapper.appendChild(this.prevButton.render());
+        paginatorWrapper.appendChild(this.pageLabel.render());
+        paginatorWrapper.appendChild(this.nextButton.render());
 
         wrapper.appendChild(this.list);
         wrapper.appendChild(paginatorWrapper);
