@@ -57,22 +57,22 @@ async function main(inputValue) {
     }
 
     if (data.botIsActive === true) {
-        switch (inputValue) {
-            case data.endUserMessage.toLowerCase():
+        switch (inputValue.toLowerCase()) {
+            case data.endUserMessage:
                 createBotMessage(data.endBotMessage);
                 data.botIsActive = false;
                 break;
-            case data.infoUserMessage.toLowerCase():
+            case data.infoUserMessage:
                 createBotMessage(data.infoBotMessage);
                 break;
-            case data.startUserMessage.toLowerCase():
+            case data.startUserMessage:
                 createBotMessage(data.startBotMessageBotIsActive);
                 break;
             default:
                 createBotMessage(data.botMessages[botMessageIndex]);
         }
     } else {
-         if (inputValue === data.startUserMessage.toLowerCase()) {
+         if (inputValue.toLowerCase() === data.startUserMessage) {
             createBotMessage(data.startBotMessage);
             data.botIsActive = true;
         }
