@@ -17,8 +17,8 @@
     background: #f7ffff;
     margin: 0;
     padding: 10px 12px!important;
-    display: flex;
-    flex-direction: column;
+    /*display: flex;*/
+    /*flex-direction: column;*/
     height: 400px;
     overflow: auto;
 }
@@ -47,12 +47,14 @@
     max-width: 55%;
     animation-duration: .3s;
     animation-name: scaleIn;
+    float: left;
+    clear: both;
 }
 
 .messenger__message--user {
     background: #ccf4f1;
     border-radius: 8px 8px 0 8px;
-    align-self: flex-end;
+    float: right;
 }
 
 .messenger__message:before {
