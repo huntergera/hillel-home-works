@@ -37,11 +37,11 @@ const data = {
 if (wrapper !== null) {
     createBotMessage(data.firstBotMessage);
 
-    form.addEventListener("submit", (event) => {
+    form.addEventListener("submit", async (event) => {
         event.preventDefault();
         const inputValue = input.value;
         if (inputValue) {
-            main(inputValue);
+            await main(inputValue);
         }
     });
 }
